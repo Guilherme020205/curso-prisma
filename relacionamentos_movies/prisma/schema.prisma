@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Movie {
+  id          Int      @id @default(autoincrement())
+  title       String
+  releaseDate DateTime
+
+  details   MovieDetail @relation(fields: [detailsId], references: [id], onDelete: Cascade) // deails faz o relacionamento com o Model MovieDetail pelo id, dizendo assim. { fields, dis que a coluna detailsId tem relacionamento "references" na tabela MovieDetail pelo id. Por fim o onDelete, deleta o MovieDetail relacionado ao Movie quando excluir o Movie }
+  detailsId Int         @unique // unique fala que o id é unico, se não tiver o unique ira dar erro no MovieDetail 
+
+  @@map("movies")
+}
+
+model MovieDetail {
+  id          Int    @id @default(autoincrement())
+  duration    Int
+  description String
+  Movie       Movie? // o ? fala que só pode ter um filme com a descrição X
+}
