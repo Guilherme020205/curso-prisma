@@ -1,0 +1,82 @@
+Documentation PRISMA: 
+https://www.prisma.io/docs 
+
+uso basico
+criar o projeto 
+$ npm init -i
+
+instal dependencias
+{
+    $ npm i -D typescript
+    $ npm i -D prisma
+    $ npm i -D ts-node-dev
+    $ npm i -D types/node
+} resumo => $ npm i -D typescript prisma ts-node-dev types/node
+
+pacote de config typescript => 
+$ npx tsc --init
+
+( ele já tem uma configuração completa nele, os desenvolvedores na doc do type aconselham a começar com essa config basica {
+    {
+    "compilerOptions": {
+        "sourceMap": true,
+        "outDir": "dist",
+        "strict": true,
+        "lib": [
+        "ESNext"
+        ],
+        "esModuleInterop": true
+        }
+    }
+})
+
+iniciar o prisma no projeto 
+
+$ npx prisma init 
+
+- caso for usar outro banco usar um modelo parecido com esse a baixo 
+    $ npx prisma init --datasource-provider postgresql
+
+apos isso seguir as instruçoes no log 
+
+abrir o .env e trocar a conecçao do banco 
+
+coso já tenha um banco e queira uma traduçao para o prisma do seu banco 
+$ npm prisma db pull
+
+resultado do meu db users com uma tabela => 
+ model users {
+   id       Int       @id @default(autoincrement())
+   name     String    @db.VarChar(100)
+   email    String    @unique @db.VarChar(100)
+   creteat  DateTime? @default(now()) @db.Timestamp(6)
+   nickname String?   @db.VarChar(50)
+ }
+
+Para interagir com o banco, fazer os CRUD com prisma, rodamos o comando 
+$ npx prisma generate
+
+dentro do nosso arquivo index.ts "C:\Users\Guilherme\Documents\GitHub\cruso-prisma\PROJETO-BASE-PRISMA\index.ts"
+
+para acessar as funções do prisma basta inserir essas linhas no codigo 
+{
+    import { PrismaClient } from "@prisma/client";
+
+    const prisma = new PrismaClient();
+}
+
+apenas com um "prisma." já conseguimos ver as sugestões que o prismas da 
+dentre ela temos o users 
+
+"prisma.users.(...)"
+
+com isso ele possibilita fazer algumas operações CRUD no banco
+...
+
+dentro de index.ts temos um exemplo de como listar todas as informações no banco com prisma.users.findMany()
+
+
+Após criar modelos e afins... quando fazer alguma mudança nos modelos e querer sincronizar com o DB rodamos o comando de migration no prisma 
+$ npx prisma migrate dev
+
+- esse comando também pode ser usado para criar o banco do zero 
