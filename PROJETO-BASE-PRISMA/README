@@ -10,8 +10,8 @@ instal dependencias
     $ npm i -D typescript
     $ npm i -D prisma
     $ npm i -D ts-node-dev
-    $ npm i -D types/node
-} resumo => $ npm i -D typescript prisma ts-node-dev types/node
+    $ npm i -D @types/node
+} resumo => $ npm i -D typescript prisma ts-node-dev @types/node
 
 pacote de config typescript => 
 $ npx tsc --init
